@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="pt">
+    <meta name="author" content="Pabluoff">
+    <meta name="Language" content="pt">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="vsl.css">
+    <link rel="preload"
+        href="https://scripts.converteai.net/ac126580-0731-4f45-9424-c0e1a1514295/players/65c8cd03d41a780008ad9625/player.js"
+        as="script">
+    <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer/v1/smartplayer.min.js" as="script">
+    <link rel="preload"
+        href="https://images.converteai.net/ac126580-0731-4f45-9424-c0e1a1514295/players/65c8cd03d41a780008ad9625/thumbnail.jpg"
+        as="image">
+    <link rel="preload"
+        href="https://cdn.converteai.net/ac126580-0731-4f45-9424-c0e1a1514295/65c8ccde4e63b90009fdab64/main.m3u8"
+        as="fetch">
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
+    <title>Emprego - Trabalho Remoto</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        Você e algumas pessoas próximas de <span id="cidade" class="city-name highlight"></span> foram selecionadas para
+        participar até o dia <span id="data" class="program-date"></span>
+    </div>
+    <div class="content">
+        <div class="unlock-section">
+            <h1>Últimas vagas</h1>
+
+            <div class="video-container">
+                <div id="vid_65c8cd03d41a780008ad9625" style="position: relative; width: 100%; padding: 56.25% 0 0;"> <img id="thumb_65c8cd03d41a780008ad9625" src="https://images.converteai.net/ac126580-0731-4f45-9424-c0e1a1514295/players/65c8cd03d41a780008ad9625/thumbnail.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;" alt="thumbnail"> <div id="backdrop_65c8cd03d41a780008ad9625" style=" -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); position: absolute; top: 0; height: 100%; width: 100%; "></div> </div> <script type="text/javascript" id="scr_65c8cd03d41a780008ad9625"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/ac126580-0731-4f45-9424-c0e1a1514295/players/65c8cd03d41a780008ad9625/player.js", s.async=!0,document.head.appendChild(s); </script>            
+                
+                <div class="live-counter">
+                <span id="viewer-count"></span> pessoas estão assistindo agora!
+            </div>
+        </div>
+    </div>
+    <script>
+        function updateLocation(location) {
+            const locationElement = document.getElementById('cidade');
+            locationElement.textContent = location;
+        }
+
+        function getIPLocation() {
+            const request = new XMLHttpRequest();
+            request.open('GET', 'https://wtfismyip.com/json', true);
+
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+                    const data = JSON.parse(request.responseText);
+                    const location = data.YourFuckingLocation.replace(/\,.+/g, "$'");
+                    updateLocation(location);
+                } else {
+                    updateLocation("Cidade Desconhecida");
+                }
+            };
+
+            request.onerror = function () {
+                updateLocation("Erro na requisição");
+            };
+
+            request.send();
+        }
+
+        getIPLocation();
+
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+
+        function updateProgramDate() {
+            const programDateElement = document.getElementById('data');
+            const brazilTimeZone = 'America/Sao_Paulo';
+            const now = luxon.DateTime.local().setZone(brazilTimeZone);
+            const currentMonth = now.month;
+            const currentYear = now.year;
+            let maxDays = 30;
+
+            if (currentMonth === 2) {
+                maxDays = isLeapYear(currentYear) ? 29 : 28;
+            } else if ([4, 6, 9, 11].includes(currentMonth)) {
+                maxDays = 30;
+            } else {
+                maxDays = 31;
+            }
+
+            const formattedStartDate = now.toFormat('dd/MM/yyyy');
+            programDateElement.textContent = formattedStartDate;
+        }
+
+        window.addEventListener('load', updateProgramDate);
+
+        function updateViewerCount() {
+            const viewerCountElement = document.getElementById('viewer-count');
+            let baseCount = Math.floor(Math.random() * (150 - 120) + 120);
+
+            function updateCount() {
+                const variation = Math.floor(Math.random() * 7) - 3;
+                baseCount += variation;
+
+                if (baseCount < 120) baseCount = 120;
+                if (baseCount > 150) baseCount = 150;
+
+                viewerCountElement.textContent = baseCount;
+            }
+
+            updateCount();
+
+            setInterval(updateCount, 3000);
+        }
+
+        window.addEventListener('load', updateViewerCount);
+    </script>
+</body>
+
+</html>

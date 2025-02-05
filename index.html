@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emprego - Trabalho Remoto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header style="display: none;">
+        <h1>EMPREGO</h1>
+    </header>
+    <div class="container">
+        <main id="landing-page">
+            <h2>Precisando de um extra?</h2>
+
+            <p class="job-description">
+                Estamos recrutando pessoas<br>
+                para trabalhar em home office<br>
+                (trabalho em casa).
+            </p>
+
+            <div class="profile-image">
+                <img src="IMG_7593.PNG" alt="Profissional sorrindo">
+            </div>
+
+            <p class="instructions">
+                Responda a algumas perguntas<br>
+                rápidas e, em 30 segundos, para sua<br>
+                vaga de trabalho remoto.
+            </p>
+
+            <button id="continue-btn">
+                CONTINUAR
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+
+            <div class="info-section">
+                <h3>Informação</h3>
+                <div class="info-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Início imediato</span>
+                </div>
+                <div class="info-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Home office (trabalho remoto)</span>
+                </div>
+                <div class="info-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Não é necessário experiência</span>
+                </div>
+            </div>
+        </main>
+
+        <main id="quiz-page" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            
+            <h2 class="quiz-question">Você tem acesso a internet?</h2>
+
+            <div class="quiz-options">
+                <button class="quiz-option" data-value="sim">
+                    <span class="option-text">SIM</span>
+                    <span class="option-emoji">👍</span>
+                </button>
+                <button class="quiz-option" data-value="nao">
+                    <span class="option-text">NÃO</span>
+                    <span class="option-emoji">😢</span>
+                </button>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <p class="copyright">© 2024. Todos os direitos reservados.</p>
+        <p class="privacy-notice">
+            Anúncios personalizados. Se preferir não receber anúncios baseados em interesses,
+            você pode desativar os cookies no seu navegador ou alterar suas configurações de
+            publicidade nas configurações do Google Ads. Tenha em atenção que desativar
+            cookies ou alterar as suas preferências de publicidade pode afetar a sua experiência
+            de navegação. Este aviso está sujeito a alterações sem aviso prévio.
+        </p>
+        <p class="footer-links">
+            Políticas de privacidade | Termos de Uso | Contato 
+        </p>
+    </footer>
+
+    <div class="loading" style="display: none;">
+        <div class="loading-container">
+            <div class="loading-bar"></div>
+        </div>
+        <div class="loading-text">AVALIANDO RESPOSTAS...</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
