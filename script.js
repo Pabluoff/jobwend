@@ -113,15 +113,19 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         setTimeout(() => {
+            
+            currentQuestion = 0;
+            updateQuestion();
+            
+            
             loading.style.display = 'none';
-            landingPage.style.display = 'block';
-            footer.style.display = 'block';
+            quizPage.style.display = 'block';
             
             
             setTimeout(() => {
                 window.location.href = 'vsl.html';
-            }, 200); 
-        }, 3000); 
+            }, 100);
+        }, 3000);
     }
 
     
