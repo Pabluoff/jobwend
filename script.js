@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
         landingPage.style.display = 'block';
         quizPage.style.display = 'none';
         footer.style.display = 'block';
+        
+        currentQuestion = 0;
+        updateQuestion();
     });
 
     const questions = [
