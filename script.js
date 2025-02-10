@@ -8,18 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const quizOptionsContainer = document.querySelector('.quiz-options');
     const loading = document.querySelector('.loading');
 
-    
+    // Oculta a tela de carregamento inicialmente
     loading.style.display = 'none';
-    
-    
+
+    // Garante que o quiz reinicia ao carregar a página
     window.addEventListener('popstate', () => {
         loading.style.display = 'none';
         landingPage.style.display = 'block';
         quizPage.style.display = 'none';
         footer.style.display = 'block';
-        
-        currentQuestion = 0;
-        updateQuestion();
+        resetQuiz();
     });
 
     const questions = [
@@ -40,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         {
-            question: "O que você faria com mais tempo livre, já que pode trabalhar de casa e organizar seu próprio horário",
+            question: "O que você faria com mais tempo livre, já que pode trabalhar de casa e organizar seu próprio horário?",
             options: [
                 { text: "Ficar mais com a família", emoji: "👨‍👩‍👧‍👦" },
                 { text: "Descansaria mais", emoji: "😃" },
@@ -61,12 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateQuestion() {
         const question = questions[currentQuestion];
         quizQuestion.textContent = question.question;
-        
-        
+
+        // Atualiza a barra de progresso
         const progress = ((currentQuestion + 1) / questions.length) * 100;
         progressFill.style.width = `${progress}%`;
 
-        
+        // Renderiza as opções de resposta
         quizOptionsContainer.innerHTML = question.options.map(option => `
             <button class="quiz-option" data-value="${option.text.toLowerCase()}">
                 <span class="option-text">${option.text}</span>
@@ -74,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </button>
         `).join('');
 
-        
         attachOptionListeners();
     }
 
@@ -84,18 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
             option.addEventListener('click', () => {
                 options.forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
-                
-                
+
                 const answer = option.dataset.value;
                 console.log('Selected answer:', answer);
 
-                
                 setTimeout(() => {
                     if (currentQuestion < questions.length - 1) {
                         currentQuestion++;
                         updateQuestion();
                     } else {
-                        
                         handleQuizCompletion();
                     }
                 }, 500);
@@ -104,37 +98,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleQuizCompletion() {
-        
         loading.style.display = 'flex';
         quizPage.style.display = 'none';
-        
-        
+
+        // Reinicia o quiz no momento do loading
+        resetQuiz();
+
         history.pushState({ page: 'loading' }, '', window.location.href);
-        
-        
+
         setTimeout(() => {
-            
-            currentQuestion = 0;
-            updateQuestion();
-            
-            
             loading.style.display = 'none';
-            quizPage.style.display = 'block';
-            
-            
+            landingPage.style.display = 'block';
+            footer.style.display = 'block';
+
             setTimeout(() => {
                 window.location.href = 'vsl.html';
-            }, 100);
+            }, 200);
         }, 3000);
     }
 
-    
+    function resetQuiz() {
+        currentQuestion = 0;
+        updateQuestion();
+    }
+
     continueBtn.addEventListener('click', () => {
         landingPage.style.display = 'none';
         quizPage.style.display = 'block';
         footer.style.display = 'none';
-        
+
         history.pushState({ page: 'quiz' }, '', window.location.href);
-        updateQuestion();
+        resetQuiz();
     });
+
+    // Reinicia o quiz ao carregar a página
+    resetQuiz();
 });
