@@ -8,6 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const quizOptionsContainer = document.querySelector('.quiz-options');
     const loading = document.querySelector('.loading');
 
+    // Hide loading screen on page load and when navigating back
+    loading.style.display = 'none';
+    
+    // Handle browser back button
+    window.addEventListener('popstate', () => {
+        loading.style.display = 'none';
+        landingPage.style.display = 'block';
+        quizPage.style.display = 'none';
+        footer.style.display = 'block';
+    });
+
     const questions = [
         {
             question: "Você tem acesso a internet?",
@@ -93,9 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show loading screen
         loading.style.display = 'flex';
         
+        // Add a state to the browser history before redirecting
+        history.pushState({ page: 'loading' }, '', window.location.href);
+        
         // Simulate processing time (3 seconds)
         setTimeout(() => {
-            // Redirect to the next page (you'll need to create this)
+            // Redirect to the next page
             window.location.href = 'vsl.html';
         }, 3000);
     }
@@ -105,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
         landingPage.style.display = 'none';
         quizPage.style.display = 'block';
         footer.style.display = 'none';
+        // Add a state to the browser history
+        history.pushState({ page: 'quiz' }, '', window.location.href);
         updateQuestion();
     });
 });
