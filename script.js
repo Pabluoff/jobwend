@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const quizOptionsContainer = document.querySelector('.quiz-options');
     const loading = document.querySelector('.loading');
 
-    // Hide loading screen on page load and when navigating back
+    
     loading.style.display = 'none';
     
-    // Handle browser back button
+    
     window.addEventListener('popstate', () => {
         loading.style.display = 'none';
         landingPage.style.display = 'block';
@@ -59,11 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = questions[currentQuestion];
         quizQuestion.textContent = question.question;
         
-        // Update progress bar
+        
         const progress = ((currentQuestion + 1) / questions.length) * 100;
         progressFill.style.width = `${progress}%`;
 
-        // Update options
+        
         quizOptionsContainer.innerHTML = question.options.map(option => `
             <button class="quiz-option" data-value="${option.text.toLowerCase()}">
                 <span class="option-text">${option.text}</span>
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </button>
         `).join('');
 
-        // Reattach event listeners to new options
+        
         attachOptionListeners();
     }
 
@@ -82,17 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 options.forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
                 
-                // Store the answer
+                
                 const answer = option.dataset.value;
                 console.log('Selected answer:', answer);
 
-                // Move to next question after a short delay
+                
                 setTimeout(() => {
                     if (currentQuestion < questions.length - 1) {
                         currentQuestion++;
                         updateQuestion();
                     } else {
-                        // Handle quiz completion
+                        
                         handleQuizCompletion();
                     }
                 }, 500);
@@ -101,25 +101,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleQuizCompletion() {
-        // Show loading screen
-        loading.style.display = 'flex';
         
-        // Add a state to the browser history before redirecting
+        loading.style.display = 'flex';
+        quizPage.style.display = 'none';
+        
+        
         history.pushState({ page: 'loading' }, '', window.location.href);
         
-        // Simulate processing time (3 seconds)
+        
         setTimeout(() => {
-            // Redirect to the next page
-            window.location.href = 'vsl.html';
-        }, 3000);
+            loading.style.display = 'none';
+            landingPage.style.display = 'block';
+            footer.style.display = 'block';
+            
+            
+            setTimeout(() => {
+                window.location.href = '/vsl.html';
+            }, 200); 
+        }, 3000); 
     }
 
-    // Show quiz when clicking continue button
+    
     continueBtn.addEventListener('click', () => {
         landingPage.style.display = 'none';
         quizPage.style.display = 'block';
         footer.style.display = 'none';
-        // Add a state to the browser history
+        
         history.pushState({ page: 'quiz' }, '', window.location.href);
         updateQuestion();
     });
