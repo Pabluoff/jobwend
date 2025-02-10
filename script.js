@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             
             setTimeout(() => {
-                window.location.href = '/vsl.html';
+                window.location.href = 'vsl.html';
             }, 200); 
         }, 3000); 
     }
